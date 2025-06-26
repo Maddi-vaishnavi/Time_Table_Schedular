@@ -1,0 +1,58 @@
+body {
+    background-color: #EAE2B7; /* Light beige background */
+    color: #003049; /* Dark blue text */
+}
+
+.card {
+    border: none;
+    background-color: white;
+}
+
+h2 {
+    color: #003049; /* Dark blue for headings */
+}
+
+.form-control, .form-select {
+    border-color: #003049; /* Dark blue border for inputs */
+    color: #003049;
+}
+
+.form-control::placeholder, .form-select::placeholder {
+    color: #003049;
+    opacity: 0.6;
+}
+
+.btn-primary {
+    background-color: #F77F00; /* Orange button */
+    border-color: #F77F00;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #D62828; /* Red on hover */
+    border-color: #D62828;
+}
+
+p {
+    color: #003049; /* Dark blue for paragraph text */
+}
+
+a {
+    color: #FCBF49; /* Yellow for links */
+    text-decoration: none;
+}
+
+a:hover {
+    color: #F77F00; /* Orange on link hover */
+    text-decoration: underline;
+}
+
+.alert-success {
+    background-color: #F77F00;
+    color: white;
+}
+
+.alert-danger {
+    background-color: #D62828;
+    color: white;
+}

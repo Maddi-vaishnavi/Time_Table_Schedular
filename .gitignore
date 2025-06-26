@@ -1,0 +1,11 @@
+myenv/
+__pycache__/
+.vscode/
+*.pyc
+*.log
+myenv/
+__pycache__/
+*.log
+*.xlsx
+uploads/
+firebase_credentials.json

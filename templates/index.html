@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timetable Scheduler Authentication</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css1.css') }}">
+</head>
+<body>
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <!-- Signup Form -->
+        <div class="card p-4 shadow" id="signup-form" style="width: 100%; max-width: 400px;">
+            <h2 class="text-center mb-4">Sign Up</h2>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form id="signupForm" method="POST" action="{{ url_for('signup') }}">
+                <div class="mb-3">
+                    <input type="text" class="form-control" name="name" placeholder="Full Name" required>
+                </div>
+                <div class="mb-3">
+                    <input type="email" class="form-control" name="email" placeholder="Email" required>
+                </div>
+                <div class="mb-3">
+                    <input type="password" class="form-control" name="password" placeholder="Password" required>
+                </div>
+                <div class="mb-3">
+                    <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" required>
+                </div>
+                <div class="mb-3">
+                    <select class="form-select" name="role" id="role" required onchange="toggleFields()">
+                        <option value="">Select Role</option>
+                        <option value="Program Chair">Program Chair</option>
+                        <option value="CR">CR</option>
+                        <option value="SR">SR</option>
+                        <option value="Faculty">Faculty</option>
+                        <option value="Coordinator">Coordinator</option>
+                    </select>
+                </div>
+                <div id="departmentField" class="mb-3" style="display: none;">
+                    <input type="text" class="form-control" name="department" placeholder="Department">
+                </div>
+                <div id="semesterField" class="mb-3" style="display: none;">
+                    <input type="text" class="form-control" name="semester" placeholder="Semester">
+                </div>
+                <div id="sectionField" class="mb-3" style="display: none;">
+                    <input type="text" class="form-control" name="section" placeholder="Section">
+                </div>
+                <div id="subjectField" class="mb-3" style="display: none;">
+                    <input type="text" class="form-control" name="subject" placeholder="Subject">
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+                <p class="text-center mt-3">Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
+            </form>
+        </div>
+
+        <!-- Login Form -->
+        <div class="card p-4 shadow" id="login-form" style="display: none; width: 100%; max-width: 400px;">
+            <h2 class="text-center mb-4">Login</h2>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form id="loginForm" method="POST" action="{{ url_for('login') }}">
+                <div class="mb-3">
+                    <input type="email" class="form-control" name="email" placeholder="Email" required>
+                </div>
+                <div class="mb-3">
+                    <input type="password" class="form-control" name="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Login</button>
+                <p class="text-center mt-3">Don't have an account? <a href="#" onclick="showSignup()">Sign Up</a></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function showLogin() {
+            document.getElementById('signup-form').style.display = 'none';
+            document.getElementById('login-form').style.display = 'block';
+        }
+
+        function showSignup() {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('signup-form').style.display = 'block';
+        }
+
+        function toggleFields() {
+            const role = document.getElementById('role').value;
+            const fields = {
+                'Program Chair': ['departmentField'],
+                'CR': ['departmentField', 'semesterField', 'sectionField'],
+                'SR': ['departmentField', 'semesterField', 'sectionField', 'subjectField'],
+                'Faculty': ['departmentField', 'semesterField', 'sectionField', 'subjectField'],
+                'Coordinator': ['departmentField', 'semesterField', 'sectionField']
+            };
+
+            ['departmentField', 'semesterField', 'sectionField', 'subjectField'].forEach(field => {
+                document.getElementById(field).style.display = 'none';
+            });
+
+            if (fields[role]) {
+                fields[role].forEach(field => {
+                    document.getElementById(field).style.display = 'block';
+                });
+            }
+        }
+
+    </script>
+</body>
+</html>
